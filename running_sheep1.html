@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .rotate {
+            animation: rotate 3s linear infinite;
+            /* filter: blur(8px); */
+            display:flex;
+            justify-content: center;
+            align-items:center;
+            height:100%;
+        }
+
+        @keyframes rotate {
+            to {
+                transform: rotate(359deg)
+            }
+        }
+
+        @keyframes translate {
+            to {
+                transform: translateX(calc(100vw - 160px));
+            }
+        }
+
+        @keyframes translate-reverse {
+            from {
+                transform: translateX(calc(100vw - 160px));
+            }
+        }
+
+        .out_box {
+            width: 100px;
+            height: 100px;
+            background-color: cornflowerblue;
+            animation: translate 4s alternate infinite ease-in-out;
+            padding: 30px;
+            
+        }
+
+        .out_box.animation-reverse {
+            animation: translate-reverse 4s alternate infinite ease-in-out;
+        }
+    </style>
+</head>
+
+<body onload="onBodyLoad()">
+    <div class="out_box">
+        <div class="rotate"  onclick="onDivClick()">
+            Name
+        </div>
+    </div>
+</body>
+<script>
+    function onBodyLoad() {
+        for (var i = 0; i < 9; i++) {
+            var div = document.createElement("div");
+            if (i%2==0) {
+                div.className = "out_box animation-reverse";
+                var node = document.createElement("div");
+                node.className="rotate";
+                node.innerHTML="Object "+i;
+                div.appendChild(node);
+            }
+            else {
+                div.className = "out_box";
+            }
+
+            document.body.appendChild(div);
+        }
+
+        /* document.append
+        document.appendChild */
+
+    }
+    function onDivClick() {
+        alert("click")
+    }
+</script>
+
+</html>
