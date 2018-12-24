@@ -7,13 +7,17 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
+        div {
+            position: absolute;
+        }
+
         .rotate {
             animation: rotate 3s linear infinite;
             /* filter: blur(8px); */
-            display:flex;
+            display: flex;
             justify-content: center;
-            align-items:center;
-            height:100%;
+            align-items: center;
+            height: 100%;
         }
 
         @keyframes rotate {
@@ -35,51 +39,50 @@
         }
 
         .out_box {
-            width: 100px;
-            height: 100px;
+            width: 50px;
+            height: 50px;
+            border-style: solid;
+            border-color: black;
             background-color: cornflowerblue;
-            animation: translate 4s alternate infinite ease-in-out;
+            animation: translate 4s alternate infinite ease-in-out; 
             padding: 30px;
-            
+
         }
 
         .out_box.animation-reverse {
-            animation: translate-reverse 4s alternate infinite ease-in-out;
+             animation: translate-reverse 4s alternate infinite ease-in-out; 
         }
     </style>
 </head>
 
 <body onload="onBodyLoad()">
-    <div class="out_box">
-        <div class="rotate"  onclick="onDivClick()">
-            Name
-        </div>
-    </div>
 </body>
+<script src="./config.js"></script>
 <script>
+
     function onBodyLoad() {
-        for (var i = 0; i < 9; i++) {
+
+        for (var i = 0; i < sheep.length; i++) {
             var div = document.createElement("div");
-            if (i%2==0) {
+            var x = get_random(0, window.innerHeight - 116);
+            div.style.top = x + "px";
+            document.body.appendChild(div);
+            var time = get_random(0, 2);
+            div.style.animationDelay = time + "s";
+            var node = document.createElement("div");
+            node.className = "rotate";
+            node.innerHTML = sheep[i].name;
+            if (i % 2 == 0) {
                 div.className = "out_box animation-reverse";
-                var node = document.createElement("div");
-                node.className="rotate";
-                node.innerHTML="Object "+i;
-                div.appendChild(node);
             }
             else {
                 div.className = "out_box";
             }
-
-            document.body.appendChild(div);
+            div.appendChild(node);
         }
-
-        /* document.append
-        document.appendChild */
-
     }
-    function onDivClick() {
-        alert("click")
+    function get_random(min, max) {
+        return Math.random() * (max - min) + min;
     }
 </script>
 
