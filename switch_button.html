@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="button" value="关灯" id="setColor" onclick="setColor_()" name="setColor" />
+</body>
+<script type="text/javascript">
+
+    function setColor_() {
+
+        var type = document.getElementById("setColor").value;
+
+        if (type == "关灯") {
+
+            document.getElementById("setColor").value = "开灯";
+
+            document.bgColor = "black";
+
+        } else {
+
+            document.getElementById("setColor").value = "关灯";
+
+            document.bgColor = "white";
+
+        }
+
+    }
+</script>
+
+</html>
