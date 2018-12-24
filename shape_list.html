@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .shape {
+            width: 40px;
+            height: 40px;
+            border-color: black;
+            border-style: solid;
+            border-radius: 100%;
+            background-color: black;
+            margin:10px;
+        }
+        .outbox{
+            width: 500px;
+            height: 60px;
+            display:flex;
+            flex-direction: row;
+        }
+    </style>
+</head>
+
+<body onload="display()">
+
+</body>
+<script>
+    function display() {
+        for (var i = 0; i < 5; i++) {
+            var box = document.createElement("div");
+                box.className = "outbox";
+                document.body.appendChild(box);
+            for (var j = 0; j <= i; j++) {
+                var div = document.createElement("div");
+                div.className = "shape";
+                
+               box.appendChild(div);
+            }
+        }
+    }
+</script>
+
+</html>
