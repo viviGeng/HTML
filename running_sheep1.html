@@ -44,13 +44,13 @@
             border-style: solid;
             border-color: black;
             background-color: cornflowerblue;
-            animation: translate 4s alternate infinite ease-in-out; 
+            animation: translate 4s alternate infinite ease-in-out;
             padding: 30px;
 
         }
 
         .out_box.animation-reverse {
-             animation: translate-reverse 4s alternate infinite ease-in-out; 
+            animation: translate-reverse 4s alternate infinite ease-in-out;
         }
     </style>
 </head>
@@ -61,28 +61,43 @@
 <script>
 
     function onBodyLoad() {
-
         for (var i = 0; i < sheep.length; i++) {
-            var div = document.createElement("div");
-            var x = get_random(0, window.innerHeight - 116);
-            div.style.top = x + "px";
-            document.body.appendChild(div);
-            var time = get_random(0, 2);
-            div.style.animationDelay = time + "s";
-            var node = document.createElement("div");
-            node.className = "rotate";
-            node.innerHTML = sheep[i].name;
-            if (i % 2 == 0) {
-                div.className = "out_box animation-reverse";
-            }
-            else {
-                div.className = "out_box";
-            }
-            div.appendChild(node);
+            var div = append_div();
+            div.appendChild(append_node(i));
         }
     }
     function get_random(min, max) {
         return Math.random() * (max - min) + min;
+    }
+    function get_location() {
+        while (sheep_location.length > 0) {
+            var x = get_random(0, window.innerHeight - 116);
+            var y = sheep_location.find(item => item.start <= x && item.end >= x && item.occupied == 0);
+            if (y != undefined) {
+                y.occupied = 1;
+                return x;
+            }
+        }
+    }
+    function append_div() {
+        var div = document.createElement("div");
+        div.style.top = get_location() + "px";
+        var time = get_random(0, 2);
+        div.style.animationDelay = time + "s";
+        document.body.appendChild(div);
+        if (time > 1) {
+            div.className = "out_box animation-reverse";
+        }
+        else {
+            div.className = "out_box";
+        }
+        return div;
+    }
+    function append_node(i) {
+        var node = document.createElement("div");
+        node.className = "rotate";
+        node.innerHTML = sheep[i].name;
+        return node;
     }
 </script>
 
