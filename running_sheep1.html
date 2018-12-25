@@ -61,15 +61,25 @@
 <script>
 
     function onBodyLoad() {
+        var sheep_location=initial();
         for (var i = 0; i < sheep.length; i++) {
-            var div = append_div();
-            div.appendChild(append_node(i));
+            var div = generate_div(sheep_location);
+            document.body.appendChild(div);
+            var node = generate_node(sheep[i].name);
+            div.appendChild(node);
         }
+    }
+    function initial() {
+        var sheep_location = new Array();
+        for (var i = 0; i < 10; i++) {
+            sheep_location[i] = { start: window.innerHeight * i / 10, end: window.innerHeight * (i + 1) / 10, occupied: 0 };
+        }
+        return sheep_location;
     }
     function get_random(min, max) {
         return Math.random() * (max - min) + min;
     }
-    function get_location() {
+    function get_location(sheep_location) {
         while (sheep_location.length > 0) {
             var x = get_random(0, window.innerHeight - 116);
             var y = sheep_location.find(item => item.start <= x && item.end >= x && item.occupied == 0);
@@ -79,12 +89,11 @@
             }
         }
     }
-    function append_div() {
+    function generate_div(sheep_location) {
         var div = document.createElement("div");
-        div.style.top = get_location() + "px";
+        div.style.top = get_location(sheep_location) + "px";
         var time = get_random(0, 2);
         div.style.animationDelay = time + "s";
-        document.body.appendChild(div);
         if (time > 1) {
             div.className = "out_box animation-reverse";
         }
@@ -93,10 +102,10 @@
         }
         return div;
     }
-    function append_node(i) {
+    function generate_node(name) {
         var node = document.createElement("div");
         node.className = "rotate";
-        node.innerHTML = sheep[i].name;
+        node.innerHTML = name;
         return node;
     }
 </script>
