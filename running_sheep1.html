@@ -13,7 +13,7 @@
 
         .rotate {
             animation: rotate 3s linear infinite;
-            /* filter: blur(8px); */
+            filter: blur(8px); 
             display: flex;
             justify-content: center;
             align-items: center;
@@ -27,14 +27,20 @@
         }
 
         @keyframes translate {
+            from{
+                transform: translateX(-20vw);
+            }
             to {
-                transform: translateX(calc(100vw - 160px));
+                transform: translateX(calc(120vw));
             }
         }
 
         @keyframes translate-reverse {
             from {
-                transform: translateX(calc(100vw - 160px));
+                transform: translateX(calc(120vw));
+            }
+            to{
+                transform: translateX(-20vw);
             }
         }
 
@@ -45,34 +51,91 @@
             border-color: black;
             background-color: cornflowerblue;
             animation: translate 4s alternate infinite ease-in-out;
-            padding: 30px;
-
         }
 
-        .out_box.animation-reverse {
+        .animation-reverse {
             animation: translate-reverse 4s alternate infinite ease-in-out;
+        }
+        .pause{
+            animation-play-state: paused;
+        }
+        .get_name{
+            filter: focus(8px);
+        }
+        .line{
+            display: block;
+            width: 100%;
+            height: 10px;
+            top:50%;
+            background-color:gray;
         }
     </style>
 </head>
 
 <body onload="onBodyLoad()">
+
 </body>
 <script src="./config.js"></script>
-<script>
-
+<script type="text/javascript">
+    var name_list = new Array();
+    var mouse_down = false;
+    var mouse_down_index;
+    var m_x, m_y, l, t;
+    var div_stored = new Array();
     function onBodyLoad() {
-        var sheep_location=initial();
+        var sheep_location = initial();
+        generate_divid_line();
+        var onMouseMove = function (div_stored) {
+            return function (e) {
+                if (mouse_down) {
+                    div_stored[mouse_down_index].style.left = e.clientX - (m_x - l) + "px";
+                    div_stored[mouse_down_index].style.top = e.clientY - (m_y - t) + "px";
+                }
+            }
+        }
+        var onMouseDown = function (div_stored, i) {
+            return function (e) {
+                mouse_down = true;
+                mouse_down_index = i;
+                div_stored[mouse_down_index].className += " " + "pause";
+                SaveToStorage(mouse_down_index);
+                console.log("first_child", document.firstElementChild)
+                console.log("mouse_index:", mouse_down_index);
+                m_x = e.clientX;
+                m_y = e.clientY;
+                l = div_stored[mouse_down_index].offsetLeft;
+                t = div_stored[mouse_down_index].offsetTop;
+                console.log("l", t)
+            }
+        }
+
         for (var i = 0; i < sheep.length; i++) {
-            var div = generate_div(sheep_location);
-            document.body.appendChild(div);
-            var node = generate_node(sheep[i].name);
-            div.appendChild(node);
+            if (window.sessionStorage.getItem("name").indexOf(sheep[i].name) == -1) {
+                var div = generate_div(sheep_location);
+                document.body.appendChild(div);
+                div_stored.push(div);
+                console.log("div", div_stored)
+                div_stored[i].addEventListener('mousedown', onMouseDown(div_stored, i))
+                document.addEventListener('mousemove', onMouseMove(div_stored))
+                document.addEventListener('mouseup', function () {
+                    mouse_down = false;
+                })
+                var node = generate_node(sheep[i].name);
+                div.appendChild(node);
+            }
+            else {
+                var div = document.createElement("div");
+                document.body.appendChild(div);
+                div_stored.push(div);
+            }
+
         }
     }
     function initial() {
         var sheep_location = new Array();
+        var half_height = window.innerHeight / 2;
         for (var i = 0; i < 10; i++) {
-            sheep_location[i] = { start: window.innerHeight * i / 10, end: window.innerHeight * (i + 1) / 10, occupied: 0 };
+            sheep_location[i] = { start: half_height + half_height * i / 10, end: half_height + half_height * (i + 1) / 10, occupied: 0 };
         }
         return sheep_location;
     }
@@ -95,7 +158,8 @@
         var time = get_random(0, 2);
         div.style.animationDelay = time + "s";
         if (time > 1) {
-            div.className = "out_box animation-reverse";
+            div.className = "out_box";
+            div.className += " " + "animation-reverse";
         }
         else {
             div.className = "out_box";
@@ -104,10 +168,32 @@
     }
     function generate_node(name) {
         var node = document.createElement("div");
+
         node.className = "rotate";
         node.innerHTML = name;
         return node;
     }
+    function generate_divid_line() {
+        var div = document.createElement("div");
+        document.body.appendChild(div);
+        div.className = "line";
+    }
+    function SaveToStorage(i) {
+        var name = sheep[i].name;
+        if (window.sessionStorage.getItem("name") == null) {
+            name_list.push(name);
+            window.sessionStorage.setItem("name", name_list);
+        }
+        else {
+            name_list.push(name);
+            window.sessionStorage.setItem("name", name_list);
+        }
+        var x = window.sessionStorage.getItem("name");
+        console.log("window_storage", x)
+    }
+
+
 </script>
+
 
 </html>

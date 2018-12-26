@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script type="text/javascript">   
+    // 当退回到第一个页面时，从 sessionStorage 得到用户之前输入的值并显示在页面，方便修改  
+    window.onload = function(){   
+       if (window.sessionStorage) {   
+           var name = window.sessionStorage.getItem("name");   
+           var age = window.sessionStorage.getItem("age");   
+           if (name != "" || name != null){   
+               document.getElementById("name").value = name;   
+           }   
+           if (age != "" || age != null){   
+               document.getElementById("age").value = age;   
+           }   
+       }else   
+       {   
+           // 不支持 sessionStorage，用 Dojo 实现相同功能  
+       }   
+    };   
+     
+    // 将数据保存到 sessionStorage 对象中  
+    function saveToStorage() {   
+       //sessionStorage   
+       if (window.sessionStorage) {   
+           var name = document.getElementById("name").value;   
+           var age = document.getElementById("age").value;   
+           window.sessionStorage.setItem("name", name);   
+           window.sessionStorage.setItem("age", age);   
+           window.location.href="form2.html";   
+       } else {   
+           // 不支持 sessionStorage，用 Dojo 实现相同功能  
+       }   
+    }   
+    </script>   
+     
+    <form action="./form2.html">   
+       <input type="text" name="name" id="name">   
+       <input type="text" name="age" id="age">   
+       <input type="button" value="Next" onclick="saveToStorage()"></input>   
+    </form>  
+    <script type="text/javascript">   
+        // 将保持在 sessionStorage 中的数据赋给表单的隐藏属性  
+        function addStorageValue() {   
+           //sessionStorage   
+           if (window.sessionStorage) {   
+               var name = window.sessionStorage.getItem("name");   
+               var age = window.sessionStorage.getItem("age");   
+               document.getElementById("name").value = name;   
+               document.getElementById("age").value = age;   
+               window.sessionStorage.removeItem("name");   
+               window.sessionStorage.removeItem("age");   
+           } else {   
+               // 不支持 sessionStorage，用 Dojo 实现相同功能  
+           }   
+        }   
+          
+        function backToPreviousForm() {   
+           window.location.href="form1.html";   
+        }   
+        </script>   
+          
+        <form action="./form3.php" method="post">   
+           <input type="hidden" name="name" id="name">   
+           <input type="hidden" name="age" id="age">   
+           <input type="text" name="address" id="address">   
+           <input type="button" value="Back" onclick="backToPreviousForm()">   
+           <input type="submit" value="Submit" onclick="addStorageValue()"></input>   
+        </form> 
+    </html>
