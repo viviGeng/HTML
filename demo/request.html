@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+    var xmlhttp;
+    var name;
+    function loadXMLDoc(url, isPost) {
+        //index = getQueryString("index");
+        //age=getQueryString("age");
+        //console.log("index", index,age);
+        xmlhttp = null;
+        if (window.XMLHttpRequest) {// code for IE7, Firefox, Opera, etc.
+            xmlhttp = new XMLHttpRequest();
+            console.log("XMLHttpRequest")
+        }
+        else if (window.ActiveXObject) {// code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            console.log("ActiveXObject")
+        }
+        if (xmlhttp != null) {
+            
+            if (isPost) {
+                
+                var postdata="index=3"
+                console.log("postdata",postdata)
+                xmlhttp.open("POST", url, true);
+                xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xmlhttp.onreadystatechange = state_Change;
+
+                console.log("after post")
+                xmlhttp.send(postdata);
+                console.log("after send")
+            } else {
+                xmlhttp.onreadystatechange = state_Change;
+                xmlhttp.open("Get", url + "?index=" + 3 + "&age=" + 45, true);
+                xmlhttp.send(null);
+            }
+
+        }
+        else {
+            alert("Your browser does not support XMLHTTP.");
+        }
+    }
+
+    function state_Change() {
+        console.log("on state_Change", xmlhttp.readyState)
+        if (xmlhttp.readyState == 4) {// 4 = "loaded"
+            console.log("readyState 4", xmlhttp.status)
+            if (xmlhttp.status == 200) {// 200 = "OK"
+                console.log("status 200", xmlhttp.response, xmlhttp.responseText)
+                console.log("parse", JSON.parse(xmlhttp.response).data)
+                
+            }
+            else {
+                alert("Problem retrieving XML data:" + xmlhttp.statusText);
+            }
+        }
+    }
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+    // loadXMLDoc('http://localhost:8000/getconfig')
+    loadXMLDoc('http://localhost:8000/postconfig/newfunction', true)
+    console.log("finish")
+</script>
+
+</html>

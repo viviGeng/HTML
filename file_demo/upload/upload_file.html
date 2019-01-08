@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+ 
+                <h2>文件上传（file upload）</h2>
+                <form action="/testUpload" method="post" enctype="multipart/form-data" id="form">
+                  <pre>
+                    Hi sir <input type="text" name="username"/>
+                 
+                 
+                    upupup <input type="file" name="photo"/>
+                 
+                 
+                              <input type="submit" value="提交" id ="btn" style="width:100px;background-color: #99ff99" >
+                  </pre>
+                </form>
+                // 利用AJAX 上传文件
+                <script>
+                 
+                  var btn = document.getElementById("btn");
+                 btn.onclick = function () {
+                 
+                 
+                    //FormData 这个对象可以用来对表单中的数据进行封装
+                    //使用FormData来对表单中的数据进行包装
+                    var fd = new FormData(document.getElementById("form"));
+                 
+                    //创建一个xhr对象
+                    var xhr = new XMLHttpRequest();
+                 
+                    //设置请求的地址
+                    xhr.open("post" , "/testUpload");
+                 
+                    //发送请求
+                    xhr.send(fd);
+                 
+                    //接收响应
+                    xhr.onreadystatechange = function () {
+                      if(xhr.readyState == 4 && xhr.status == 200){
+                        alert(xhr.responseText);
+                      }
+                    };
+                 
+                    //取消默认行为
+                    return false;
+                  };
+                 
+                </script>
+</body>
+</html>

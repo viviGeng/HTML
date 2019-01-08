@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            position: absolute;
+        }
+
+        .rotate {
+            animation: rotate 3s linear infinite;
+            filter: blur(8px); 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        @keyframes rotate {
+            to {
+                transform: rotate(359deg)
+            }
+        }
+
+        @keyframes translate {
+            from{
+                transform: translateX(-20vw);
+            }
+            to {
+                transform: translateX(calc(140vw));
+            }
+        }
+
+        @keyframes translate-reverse {
+            from {
+                transform: translateX(calc(140vw));
+            }
+            to{
+                transform: translateX(-20vw);
+            }
+        }
+
+        .out_box {
+             left:-20vw; 
+             position: fixed;
+            width: 50px;
+            height: 50px;
+            border-style: solid;
+            border-color: black;
+            background-color: cornflowerblue;
+            animation: translate 8s alternate infinite ease-in-out;
+        }
+
+        .animation-reverse {
+            animation: translate-reverse 8s alternate infinite ease-in-out;
+        }
+        .pause{
+            animation-play-state: paused;
+        }
+        .continue{
+            animation-play-state:running;
+        }
+        .get_name{
+            filter: blur(0px);
+        }
+        .line{
+            position: fixed;
+            width: 100%;
+            height: 10px;
+            top:50%; 
+            background-color:gray;
+        }
+    </style>
+</head>
+
+<body onload="onBodyLoad()">
+</body>
+<script src="./config.js" async></script>
+<script type="text/javascript">
+    var name_list = new Array();
+    var mouse_down = false;
+    var mouse_down_index;
+    var m_x, m_y, l, t;
+    var div_stored = new Array();
+    function onBodyLoad() {
+        console.log("start")
+        var sheep_location = initial();
+        generate_divid_line();
+        var onMouseMove = function () {
+            return function (e) {
+                if (mouse_down) {
+                    div_stored[mouse_down_index].style.left = e.clientX - (m_x - l) + "px";
+                    div_stored[mouse_down_index].style.top = e.clientY - (m_y - t) + "px";
+                }
+            }
+        }
+
+
+        var onMouseDown = function (index) {
+            return function (e) {
+                mouse_down = true;
+                if (!hasClass(this, "pause")) {
+                    this.className += " " + "pause";
+                }
+                mouse_down_index = index
+                m_x = e.clientX;
+                m_y = e.clientY;
+                l = this.offsetLeft;
+                t = this.offsetTop;
+            }
+        }
+
+       /* const catchedSheep = window.localStorage.getItem("catched_name")
+        console.log("catchedsheep",catchedSheep);
+        var activeSheep = sheep.fil
+ */
+
+
+        console.log("sheep", sheep)
+        for (var i = 0; i < sheep.length; i++) {
+            if (window.localStorage.getItem(i) == null) {
+                console.log("in loop", i, sheep[i])
+                var div = generate_div(sheep_location);
+                // div_stored.push(div);
+                // div_stored[i].addEventListener('mousedown', null)
+
+                var node = generate_node(sheep[i].name);
+                div.appendChild(node);
+                document.body.appendChild(div);
+            }
+            else {
+                var div = document.createElement("div");
+                document.body.appendChild(div);
+                div_stored.push(div);
+            }
+        }
+        // document.addEventListener('mousemove', onMouseMove())
+        // document.addEventListener('mouseup', function () {
+        //     mouse_down = false;
+        //    var x=div_stored[mouse_down_index].style.top;
+        //    var y=(window.innerHeight / 2)+'px';
+        //     if (x > y) {
+        //         if(hasClass(div_stored[mouse_down_index], 'pause')){
+        //             console.log(x, y)
+        //             removeClass(div_stored[mouse_down_index], "pause")
+        //         }    
+        //     }
+        //     else {
+        //         SaveToStorage(mouse_down_index);
+        //         div_stored[mouse_down_index].children[0].className += " " + "get_name";
+        //     }
+        // })
+    }
+    function hasClass(obj, cls) {
+        return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
+    }
+    function removeClass(obj, cls) {
+        if (hasClass(obj, cls)) {
+            var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
+            obj.className = obj.className.replace(reg, ' ');
+        }
+    }
+    function initial() {
+        var sheep_location = new Array();
+        var half_height = window.innerHeight / 2;
+        for (var i = 0; i < 10; i++) {
+            sheep_location[i] = { start: half_height + half_height * i / 10, end: half_height + half_height * (i + 1) / 10, occupied: 0 };
+        }
+        return sheep_location;
+    }
+    function get_random(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+    function get_location(sheep_location) {
+        debugger;
+        while (sheep_location.length > 0) {
+            var x = get_random(0, window.innerHeight - 116);
+            var y = sheep_location.find(item => item.start <= x && item.end >= x && item.occupied == 0);
+            if (y != undefined) {
+                y.occupied = 1;
+                return x;
+            }
+        }
+    }
+    function generate_div(sheep_location) {
+        var div = document.createElement("div");
+        div.style.top = get_location(sheep_location) + "px";
+        var time = get_random(0, 2);
+        div.style.animationDelay = time + "s";
+        if (time > 1) {
+            div.className = "out_box";
+            div.className += " " + "animation-reverse";
+        }
+        else {
+            div.className = "out_box";
+        }
+        return div;
+    }
+    function generate_node(name) {
+        var node = document.createElement("div");
+        node.className = "rotate";
+        node.innerHTML = name;
+        return node;
+    }
+    function generate_divid_line() {
+        var div = document.createElement("div");
+        document.body.appendChild(div);
+        div.className = "line";
+    }
+   /*  function SaveToStorage(name) {
+        name_list.push(name);
+        window.localStorage.setItem("catched_name", name_list);
+    } */
+    function SaveToStorage(i) {
+        var name = sheep[i].name;
+        window.localStorage.setItem(i, name);
+    }
+
+</script>
+
+
+</html>

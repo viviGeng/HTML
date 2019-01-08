@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title font-weight: normal;line-height: 1.1;>Lucas的年度反馈收集</title>
+
+    <style>
+        .color {
+
+        }
+        .input-container {
+            width: 640px;
+            height: 66px;
+            display: block;
+            margin-left:30px;
+        }
+        .submit{
+            width: 155.42px;
+            height: 32px;
+            display: inline-block;
+            color: #ffffff;
+            background:rgb(255, 133, 0);
+            font-family:"Pingfang SC","Helvetica Neue","Microsoft Yahei",Helvetica,Arial,"Hiragino Sans GB","Microsoft Sans Serif","WenQuanYi Micro Hei",sans;
+            font-size:14.004px;
+            font-style:normal;
+            font-variant-caps: normal;
+            font-weight: 400;
+        }
+        .background{
+            /* background-color: #000000; */
+            margin-top:50px;
+            height: 1000px;
+            width: 700px;
+            margin: 0 auto;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.15);
+            background-color: #ffffff;
+        }
+        .top{
+            background:rgb(255, 133, 0);
+            width:100%;
+            height:44px;
+            display:block;
+        }
+        .subtitle
+        {
+            color:#505050;
+            display:block;
+            font-family:"Pingfang SC","Helvetica Neue","Microsoft Yahei",Helvetica,Arial,"Hiragino Sans GB","Microsoft Sans Serif","WenQuanYi Micro Hei",sans;
+            font-size:12px;
+            font-style:normal;
+            font-variant-caps: normal;
+            font-weight: 400;
+            line-height: 19.2px;
+            max-width: 100%;
+            padding-bottom: 10px;
+            padding-top:25px;
+            padding-left:30px;
+            padding-right:30px;
+        }
+        .title{
+            font-family:"Pingfang SC","Helvetica Neue","Microsoft Yahei",Helvetica,Arial,"Hiragino Sans GB","Microsoft Sans Serif","WenQuanYi Micro Hei",sans;
+            font-size:20.004px;
+            font-style:normal;
+            font-variant-caps: normal;
+            font-weight: 400;
+            line-height: 20.0044px;
+            max-width: 100%; 
+            padding-bottom: 10px;
+            padding-top:25px;
+            padding-left:30px;
+            padding-right:30px;
+        }
+        .quest{
+            font-family:"Pingfang SC","Helvetica Neue","Microsoft Yahei",Helvetica,Arial,"Hiragino Sans GB","Microsoft Sans Serif","WenQuanYi Micro Hei",sans;
+            font-size:14.004px;
+            font-style:normal;
+            font-variant-caps: normal;
+            font-weight: 700;
+            line-height: 19.6056px;
+            max-width: 100%; 
+            margin-bottom: 1px;
+            margin-left:30px;
+        }
+        .block{
+            padding-top:15px;
+            padding-bottom: 15px;
+        }
+        .image {
+            height: 1200px;
+            position: absolute;
+            top: 0;
+            z-index: -1;
+        }
+        a:link,a:visited{
+            text-decoration:none;  /*超链接无下划线*/
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <img src="./20171019112204_70ac08.png" alt="" class="image">
+        <div class="background color">
+
+            <div class="top"></div>
+            <h1 class="title">
+                Lucas的年度反馈收集
+            </h1>
+            <p1 class="subtitle">
+                Hello亲们，小弟来TW进半年咯，这段期间很谢谢大家的支持和鼓励，想请大家再拨冗些时间我提出一些反馈吧！谢谢！祝一切顺心
+
+            </p1>
+            <form action="form_action.asp" method="get">
+                <div class="block">
+                    <div class="quest">General 综合性的给点建议或反馈吧，或是想偷偷跟我说些什么也可以</div>
+                    <input type="text" class="input-container">
+                </div>
+                <div class="block">
+                    <div class="quest">Develop Others</div>
+                    <input type="text" class="input-container">
+                </div>
+                <div class="block">
+                    <div class="quest">Skills</div>
+                    <input type="text" class="input-container">
+                </div>
+                <div class="block">
+                    <div class="quest">Impact</div>
+                    <input type="text" class="input-container">
+                </div>
+                <div class="block">
+                    <div class="quest">Contribution</div>
+                    <input type="text" class="input-container">
+                </div>
+                <div class="block">
+                    <div class="quest">Customer Focus</div>
+                    <input type="text" class="input-container">
+                </div>
+                <p></p>
+                <div align="center">
+                    <input type="submit" class="submit" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <div align="center" style="margin-top:50px">
+        <a href="https://jinshuju.net/?utm_source=pub_footer" style="color:#545454;text-decoration:none;">Powered by
+            Jinshuju</a>
+    </div>
+</body>
+
+</html>

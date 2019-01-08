@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+    var xmlhttp;
+    var urls;
+    function loadXMLDoc(url) {
+        console.log('enter')
+        xmlhttp = null;
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        }
+        else if (window.ActiveXobject) {
+            xmlhttp = new ActiveXOBject("Microsoft.XMLHTTP");
+        }
+        if (xmlhttp != null) {
+            //var postdata = "address=" + '/upload/default.html';
+            xmlhttp.open("POST", url, true);
+            xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xmlhttp.onreadystatechange = state_Change;
+            console.log("after post")
+            xmlhttp.send(null);
+            console.log("after send")
+        }
+        else {
+            alert("Your browser does not support XMLHTTP.");
+        }
+    }
+    function state_Change() {
+        console.log("on state_Change", xmlhttp.readyState)
+        if (xmlhttp.readyState == 4) {// 4 = "loaded"
+            console.log("readyState 4")
+            if (xmlhttp.status == 200) {// 200 = "OK"
+                console.log("status 200", xmlhttp.response, xmlhttp.responseText)
+                var obj = JSON.parse(xmlhttp.response)
+                urls=obj;
+                //document.write(`<form action="/chosen" method="post" enctype="multipart/form-data" >`)
+                for (var i = 0; i < obj.length; i++) {
+                    document.write(`<input type="radio" value=${obj[i]} name="linklist" id=${i}>${obj[i]}</br>`)
+                }
+                //document.write(`<input type="submit" value="下载">`)
+                document.write(`<button onClick="onClick()">download</button>`)
+                //document.write(`</form>`)
+                console.log('checked', document.getElementsByName("linklist"))
+            }
+            else {
+                alert("Problem retrieving XML data:" + xmlhttp.statusText);
+            }
+        }
+    }
+    function onClick() {
+        var linkList = document.getElementsByName('linklist')
+        for(var i=0;i<linkList.length;i++){
+            if(linkList[i].checked){
+                console.log('obj_chosen',urls[i])
+            }
+        }
+    }
+    loadXMLDoc('http://localhost:3000/getlist')
+</script>
+
+</html>
