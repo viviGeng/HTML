@@ -1,14 +1,11 @@
 var _callback;
+var xmlhttp;
 function request(type, url, params, callback) {
-    var xmlhttp;
-    _callback=callback;
-    if(params != null){
-        params="data="+params;
-    }
-    loadXMLDoc(url);
+    _callback = callback;
+    loadXMLDoc(type, url);
 }
 
-function loadXMLDoc(url) {
+function loadXMLDoc(type, url) {
     xmlhttp = null;
     if (window.XMLHttpRequest) {
         xmlhttp = new XMLHttpRequest();
@@ -17,12 +14,19 @@ function loadXMLDoc(url) {
         xmlhttp = new ActiveXOBject("Microsoft.XMLHTTP");
     }
     if (xmlhttp != null) {
-        xmlhttp.open("POST", url, true);
-        xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xmlhttp.onreadystatechange = state_Change;
+        xmlhttp.open(type, url, true);
+        console.log('type,url',type,url);
+        if(type=="POST"){
+            xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        }else {
+            xmlhttp.setRequestHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8")
+            xmlhttp.setRequestHeader("Accept-Encoding", "gzip, deflate, br")
+            xmlhttp.setRequestHeader("Connection", "keep-alive")
+        }
+        
+        xmlhttp.onreadystatechange = state_Change;
         console.log("after post")
-        xmlhttp.send(params);
-        console.log("after send")
+        xmlhttp.send(null);
     }
     else {
         alert("Your browser does not support XMLHTTP.");
@@ -34,9 +38,9 @@ function state_Change() {
         console.log("readyState 4")
         if (xmlhttp.status == 200) {// 200 = "OK"
             console.log("status 200", xmlhttp.response, xmlhttp.responseText);
-        
-                _callback && _callback(JSON.parse(xmlhttp.response))
-            
+
+            _callback && _callback(JSON.parse(xmlhttp.response))
+
         }
         else {
             alert("Problem retrieving XML data:" + xmlhttp.statusText);

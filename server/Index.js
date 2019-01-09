@@ -7,4 +7,6 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 upload.start(app);
 download.start(app);
-app.listen(3000)
+app.listen(3000, ()=>{
+    console.log("listening on 3000")
+})

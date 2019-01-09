@@ -1,3 +1,5 @@
+var _data;
+var select_id;
 function getList() {
     request("POST", 'http://localhost:3000/getlist', null, showList)
 }
@@ -6,9 +8,9 @@ function showList(data) {
     for (var i = 0; i < data.length; i++) {
         document.write(`<input type="radio" value=${data[i]} name="linklist" id=${i}>${data[i]}</br>`)
     }
-    var select_id;
+    _data=data;
     document.write(`<button onClick="onClick()">download</button>`)
-    request("POST",'http://localhost:3000/download',data[select_id])
+    
 }
 function onClick() {
     var linkList = document.getElementsByName('linklist')
@@ -18,6 +20,9 @@ function onClick() {
             break;
         }
     }
+    console.log('send','http://localhost:3000/downfile?file='+_data[select_id])
+    // request("GET",'http://localhost:3000/downfile?file='+_data[select_id],_data[select_id])
+    request("GET",'http://localhost:3000/downfile2/'+_data[select_id],_data[select_id])
 }
 
 getList()
