@@ -22,6 +22,20 @@ var download = {
             res.setHeader("Access-Control-Allow-Origin", "*")
             res.send(listlink)
         })
+        app.get("/downfile", function (req, res){
+            //第一种方式
+            var path = utils.getPath("/../upload/index.js");
+            res.download(path);
+
+            //第二种方式
+            // var path = utils.getPath("/../upload/index.js");
+            // var f = fs.createReadStream(path);
+            // res.writeHead(200, {
+            //     'Content-Type': 'application/force-download',
+            //     'Content-Disposition': 'attachment; filename=test.js'
+            // });
+            // f.pipe(res);
+        })
         
     }
 }
