@@ -1,0 +1,130 @@
+{
+    "request": {
+        "method": "GET",
+        "url": "/api/communityNotification/search?page=0&size=20",
+        "cookies": {
+            "SESSION": {
+                "matches": ".*xuan.zhou.o.*"
+            }
+        }
+    },
+    "response": {
+        "status": 200,
+        "jsonBody": {
+            "_embedded": {
+                "lastViewTime": 1527060578,
+                "notifications": [
+                    {
+                        "type": "LIKE_ACTIVITY_COMMENT",
+                        "createdAt": 1527060578,
+                        "payload": {
+                            "id": "1",
+                            "subject": "yugang.zhou",
+                            "key": "/dev/scenarios/1/attachments/filename.png"
+                        }
+                    },
+                    {
+                        "type": "LIKE_TOPIC_COMMENT",
+                        "createdAt": 1527060578,
+                        "payload": {
+                            "id": "1",
+                            "subject": "yugang.zhou",
+                            "key": "/dev/scenarios/1/attachments/filename.png"
+                        }
+                    },
+                    {
+                        "type": "ADD_TOPIC_POWER",
+                        "createdAt": 1527060578,
+                        "payload": {
+                            "id": "1",
+                            "subject": "yugang.zhou",
+                            "key": "/dev/scenarios/1/attachments/filename.png"
+                        }
+                    },
+                    {
+                        "type": "REPLY_ACTIVITY_COMMENT",
+                        "createdAt": 1527060578,
+                        "payload": {
+                            "id": "1",
+                            "subject": "yugang.zhou",
+                            "key": "/dev/scenarios/1/attachments/filename.png"
+                        }
+                    },
+                    {
+                        "type": "REPLY_TOPIC_COMMENT",
+                        "createdAt": 1527060578,
+                        "payload": {
+                            "id": "1",
+                            "subject": "yugang.zhou",
+                            "key": "/dev/scenarios/1/attachments/filename.png"
+                        }
+                    },
+                    {
+                        "type": "ADD_TOPIC_COMMENT",
+                        "createdAt": 1527060578,
+                        "payload": {
+                            "id": "1",
+                            "subject": "yugang.zhou",
+                            "key": "/dev/scenarios/1/attachments/filename.png"
+                        }
+                    },
+                    {
+                        "type": "INVITE_MEMBER",
+                        "createdAt": 1527060578,
+                        "payload": {
+                            "id": "1",
+                            "subject": "yugang.zhou",
+                            "key": "/dev/scenarios/1/attachments/filename.png"
+                        }
+                    },
+                    {
+                        "type": "BE_INVITED_TO_TEAM",
+                        "createdAt": 1527060578,
+                        "payload": {
+                            "id": "1",
+                            "subject": "yugang.zhou",
+                            "key": "/dev/scenarios/1/attachments/filename.png"
+                        }
+                    }
+                ],
+                "profiles": [
+                    {
+                        "username": "yugang.zhou",
+                        "displayName": "Yugang Zhou",
+                        "character": "ANTHROPOLOGIST"
+                    }
+                ],
+                "pictures": [
+                    {
+                        "key": "/dev/scenarios/1/attachments/filename.png",
+                        "thumbnail": "http://bucketName-123456.picsh.myqcloud.com/dev/topics/22/attachments/filename.png?imageMogr2/scrop/210x180&sign=fackSignature"
+                    },
+                    {
+                        "key": "/dev/scenarios/2/attachments/filename.png",
+                        "thumbnail": "http://bucketName-123456.picsh.myqcloud.com/dev/topics/22/attachments/filename.png?imageMogr2/scrop/210x180&sign=fackSignature"
+                    }
+                ]
+            },
+            "_links": {
+                "first": {
+                    "href": "http://localhost:8080/api/news/search?page=0&size=20"
+                },
+                "prev": {
+                    "href": "http://localhost:8080/api/stations/search?page=0&size=20"
+                },
+                "self": {
+                    "href": "http://localhost:8080/api/stations/search?page=0&size=20"
+                },
+                "last": {
+                    "href": "http://localhost:8080/api/stations/search?page=1&size=20"
+                }
+            },
+            "page": {
+                "size": 20,
+                "totalElements": 25,
+                "totalPages": 2,
+                "number": 0
+            }
+        }
+    }
+}
