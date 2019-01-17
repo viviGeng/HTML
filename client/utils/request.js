@@ -1,5 +1,6 @@
 var _callback;
 var xmlhttp;
+console.log("request ====>")
 function request(type, url, params, callback) {
     _callback = callback;
     loadXMLDoc(type, url);
@@ -47,3 +48,5 @@ function state_Change() {
         }
     }
 }
+
+

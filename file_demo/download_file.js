@@ -49,6 +49,7 @@ app.get('/download2', function (req, res) {
     res.sendFile(__dirname + "/upload/default")
 });
 
+
 app.post('/getList',function(req,res){
     var listlink=fs.readdirSync('./upload')
     res.setHeader("Access-Control-Allow-Origin", "*")
