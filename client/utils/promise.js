@@ -36,7 +36,6 @@ function loadXMLDoc(type, url, resolve) {
   }
 
     xmlhttp.onreadystatechange = state_Change(resolve)
-    console.log("after post")
 
     xmlhttp.send(null)
   } else {
@@ -46,14 +45,11 @@ function loadXMLDoc(type, url, resolve) {
 
 function state_Change(resolve) {
   return function() {
-    console.log("on state_Change", xmlhttp.readyState)
     if (xmlhttp.readyState == 4) {
       // 4 = "loaded"
-      console.log("readyState 4")
       if (xmlhttp.status == 200) {
         // 200 = "OK"
-        console.log("status 200", xmlhttp.response, xmlhttp.responseText)
-
+        console.log("get response")
         resolve(JSON.parse(xmlhttp.response))
       } else {
         alert("Problem retrieving XML data:" + xmlhttp.statusText)

@@ -1,7 +1,7 @@
 var config = {
     port: 3000,
     ip: "localhost",
-   // host: `http://${this.ip}:${this.port}`
+    //host:`http://${config.ip}:${config.port}`
+   // host: `http://${ip}:${port}`
 }
-
 var getUrl = (method) => `http://${config.ip}:${config.port}/${method}`
