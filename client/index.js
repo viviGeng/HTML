@@ -37,7 +37,11 @@ get("getStudentNames").then(function(res) {
       console.log("getGender_res", res.data.gender)
     })
   })
+  
 })
+get("getStudentNames").catch(function(error) {
+    console.log('Error: ', error);
+  });
 
 function* get_student() {
   const res = yield get("getStudentNames")
@@ -85,11 +89,13 @@ function generator_run(generator) {
 
 async function test() {
   const res = await get("getStudentNames")
+  console.log("res",res)
   const res2 = await get("getStudentIdByName", res.data[0].name)
   const res3 = await get("getStudentGenderById", res2.data.id)
   return { test: res3.data.gender + "222" }
 }
 
-test().then(res => {
+/* test().then(res => {
   console.log("result", res)
 })
+ */
