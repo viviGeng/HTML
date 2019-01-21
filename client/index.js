@@ -1,3 +1,5 @@
+
+
 var _data
 var select_id
 function getList() {
@@ -27,7 +29,37 @@ function showList(data) {
   })
 }
 
+/* try{
+  throw ""
+}catch(err) {
+  console.log("catch", err)
+} */
+
+
+/* var promise = new Promise((resolve, reject) => {
+  throw "test error"
+})
+
+promise.then(res=>{
+console.log("resolve")
+}, rejRes => {
+  console.log("reject", rejRes)
+}).catch(err => {
+  console.log("catch")
+}) */
+
 getList()
+const someAsyncThing = function() {
+  return new Promise(function(resolve, reject) {
+    // 下面一行会报错，因为x没有声明
+    resolve(x + 2);
+  });
+};
+
+someAsyncThing()
+.catch(function(error) {
+  console.log('oh no', error);
+})
 
 get("getStudentNames").then(function(res) {
   console.log("getName_res", res.data[0].name)
@@ -35,13 +67,19 @@ get("getStudentNames").then(function(res) {
     console.log("getId_res", res.data.id)
     get("getStudentGenderById", res.data.id).then(function(res) {
       console.log("getGender_res", res.data.gender)
+    },function(err){
+      console.log("err3",err)
     })
+  },function(err){
+    console.log("err2",err)
   })
-  
+},function(err){
+  console.log("err1",err)
 })
-get("getStudentNames").catch(function(error) {
-    console.log('Error: ', error);
-  });
+.catch(function(error){
+  console.log("ERROR ",error)
+})
+
 
 function* get_student() {
   const res = yield get("getStudentNames")
